@@ -1,0 +1,29 @@
+<h3>Submissions for Class: <%= classroom.name %></h3>
+
+<h4>Submissions:</h4>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Student</th>
+      <th>Assignment</th>
+      <th>Submission Date</th>
+      <th>File</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% submissions.forEach(submission => { %>
+      <tr>
+        <td><%= submission.student.username %></td>
+        <td><%= submission.assignment.title %></td>
+        <td><%= submission.submittedAt.toLocaleDateString() %></td>
+        <td><a href="<%= submission.fileUrl.url %>" target="_blank">Download</a></td>
+      </tr>
+    <% }) %>
+  </tbody>
+  <form action="/teacher/assignment/<%= assignment._id %>/manual-check" method="POST">
+    <button type="submit" style="padding: 8px 12px; background-color: #007bff; color: white; border: none; border-radius: 5px;">
+      Run Plagiarism Check
+    </button>
+  </form>
+  </form>
+</table>

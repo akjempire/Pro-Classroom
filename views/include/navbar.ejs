@@ -1,0 +1,67 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
+  <div class="container-fluid">
+    <!-- Logo on the left -->
+    <span class="navbar-brand">
+      <img src="/logo.png" alt="Logo" width="80" height="60" class="d-inline-block align-text-top">
+    </span>
+
+    <!-- Toggle button for mobile view -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+      aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Nav links on the right -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarContent">
+      <ul class="navbar-nav mb-2 mb-lg-0">
+
+        <!-- Dashboard/Home -->
+        <% if (currUser && currUser.role === 'teacher') { %>
+          <li class="nav-item">
+            <a class="nav-link active" href="/teacher/teacherDashboard"><b>Dashboard</b></a>
+          </li>
+        <% } else if (currUser && currUser.role === 'student') { %>
+          <li class="nav-item">
+            <a class="nav-link active" href="/student/studentDashboard"><b>Dashboard</b></a>
+          </li>
+        <% } else { %>
+          <li class="nav-item">
+            <a class="nav-link active" href="/"><b>Home</b></a>
+          </li>
+        <% } %>
+
+        <% if (!currUser) { %>
+          <!-- Signup Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="signupDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <b>Signup</b>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="signupDropdown">
+              <li><a class="dropdown-item" href="/signupTeacher">Teacher</a></li>
+              <li><a class="dropdown-item" href="/signupStudent">Student</a></li>
+            </ul>
+          </li>
+
+          <!-- Login Dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="loginDropdown" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              <b>Login</b>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="loginDropdown">
+              <li><a class="dropdown-item" href="/loginTeacher">Teacher</a></li>
+              <li><a class="dropdown-item" href="/loginStudent">Student</a></li>
+            </ul>
+          </li>
+        <% } else { %>
+          <!-- Logout -->
+          <li class="nav-item">
+            <a class="nav-link" href="/logout"><b>Logout</b></a>
+          </li>
+        <% } %>
+
+      </ul>
+    </div>
+  </div>
+</nav>

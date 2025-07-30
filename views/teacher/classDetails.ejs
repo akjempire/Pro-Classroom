@@ -1,0 +1,49 @@
+<% layout('layouts/boilerplate') %>
+<div class="modern-table-wrapper">
+  <h2 class="table-heading">Classroom: <%= classroom.name %></h2>
+
+  <div class="d-flex gap-3 mb-4">
+    <a href="/teacher/class/<%= classroom._id %>/students" class="btn btn-info ">Student Details</a>
+    <a href="/teacher/class/<%= classroom._id %>/upload-assignment" class="btn btn-success">Upload Assignment</a>
+    <a href="/teacher/class/<%= classroom._id %>/assignments" class="btn btn-primary">View Assignments</a>
+  </div>
+
+  <h2 class="table-heading">Assignments for Class: <%= classroom.name %></h2>
+
+  <% if (assignments.length === 0) { %>
+    <div class="alert alert-warning">No assignments created yet.</div>
+  <% } else { %>
+    <div class="table-container">
+      <table class="modern-table">
+        <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Uploaded On</th>
+            <th>Due Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% assignments.forEach((assgn, index) => { %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= assgn.title %></td>
+              <td><%= assgn.description %></td>
+              <td><%= new Date(assgn.createdAt).toLocaleDateString() %></td>
+              <td><%= new Date(assgn.deadline).toLocaleDateString() %></td>
+              <td>
+                <a href="/teacher/class/<%= classroom._id %>/assignment/<%= assgn._id %>/submissions" class="btn btn-purple">
+                  View Submissions
+                </a>
+
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</div>
+

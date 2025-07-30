@@ -1,0 +1,65 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Students in Class: <%= classroom.name %></h2>
+
+  <!-- Responsive Table -->
+  <div class="table-responsive">
+    <table class="table table-hover shadow rounded">
+      <thead class="thead-dark">
+        <tr>
+          <th>#</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Joining Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% classroom.students.forEach((student, index) => { %>
+          <tr>
+            <td><%= index + 1 %></td>
+            <td><%= student.username %></td>
+            <td><%= student.email %></td>
+            <td><%= new Date(student.createdAt).toLocaleDateString() %></td>
+            <td>
+              <a href="/teacher/class/<%= classroom._id %>/student/<%= student._id %>/assignments" class="btn btn-sm btn-info">
+                View Assignments
+              </a>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Mobile-friendly styling -->
+<style>
+  @media (max-width: 768px) {
+    table th, table td {
+      font-size: 12px;  /* Smaller font size for mobile */
+      padding: 8px;  /* Adjusted padding for smaller screens */
+    }
+
+    .table-responsive {
+      -webkit-overflow-scrolling: touch; /* For better scrolling on iOS */
+    }
+
+    .table thead th {
+      text-align: center; /* Align headers to center for smaller screens */
+    }
+
+    .table tbody td {
+      text-align: center; /* Align data to center for smaller screens */
+    }
+
+    .btn {
+      font-size: 12px; /* Smaller button font size */
+    }
+
+    h2 {
+      font-size: 20px; /* Smaller heading on mobile */
+    }
+  }
+</style>

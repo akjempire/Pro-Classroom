@@ -1,0 +1,137 @@
+<% layout('layouts/boilerplate') %>
+
+<style>
+    /* Branding Section */
+   body {
+    background-image: url('/16282276_rm222batch2-mind-03.svg');
+    background-repeat: no-repeat;
+    background-size: cover;         /* makes the image cover entire screen */
+    background-position: center;    /* centers the image */
+    background-attachment: fixed;   /* optional: keeps image fixed on scroll */
+    
+    margin: 0;
+    padding: 0;
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+
+    
+.branding-section {
+    padding: 80px 20px;
+    color: #333;
+}
+
+/* Typing Animation */
+@keyframes typing {
+    0% {
+        width: 0;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+.animated-text {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    
+    width: 0;
+    animation: typing 5s steps(30) infinite, blink 0.75s step-end infinite;
+}
+
+/* Blink Animation for the cursor effect */
+@keyframes blink {
+    50% {
+        border-color: transparent;
+    }
+}
+
+.content-section h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+/* Cream background section */
+.content-section {
+   
+    padding: 60px 20px;
+    color: #333;
+    animation: fadeInUp 1.2s ease-in-out;
+}
+
+/* Title styling */
+.features-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+    animation: slideInFromLeft 2s ease-out infinite alternate;
+}
+
+/* Paragraph styling */
+.features-description {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    animation: slideInFromRight 2s ease-out infinite alternate;
+}
+
+/* Fade In Animation */
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Slide-in Animations */
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-10px);
+    }
+    to {
+        transform: translateX(10px);
+    }
+}
+
+@keyframes slideInFromRight {
+    from {
+        transform: translateX(10px);
+    }
+    to {
+        transform: translateX(-10px);
+    }
+}
+
+</style>
+
+<section class="branding-section text-center text-dark py-5" >
+    <h1 class="display-4 fw-bold mb-3 animated-text">Welcome to Pro-Classroom</h1>
+    <br>
+    <p class="lead mb-4 "><b><i>A platform for modern learning where teachers and students come together to explore, engage, and excel!</i></b></p>
+    <br>
+    <p class="h3 ">Let's make learning a great experience!</p>
+</section>
+
+<!-- Main Content Section -->
+<section class="content-section py-5">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-10 text-center">
+                <h2 class="features-title">Explore Our Features</h2>
+                <p class="features-description">
+                    Pro-Classroom provides powerful tools for teachers and students to enhance their learning experience.
+                    Get started now and enjoy the journey!
+                </p>
+            </div>
+        </div>
+    </div>
+</section>

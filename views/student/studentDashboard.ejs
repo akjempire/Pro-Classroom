@@ -1,0 +1,48 @@
+<% layout('layouts/boilerplate') %>
+
+<div class="dashboard-container" style="max-width: 800px; margin: auto; padding: 2rem;">
+  <h2 style="text-align: center;">Welcome, <%= student.username %> 👋</h2>
+
+  <!-- Join Class Form -->
+  <div style="margin-top: 2rem; padding: 1rem; border: 1px solid #ccc; border-radius: 10px;">
+    <h3>Join a Class</h3>
+    <form action="/student/join-class" method="POST" style="display: flex; gap: 1rem; flex-wrap: wrap;">
+      <input 
+        type="text" 
+        name="classCode" 
+        placeholder="Enter Class Code" 
+        required 
+        style="flex: 1; padding: 0.5rem; border-radius: 5px; border: 1px solid #ccc;"
+      />
+      <button 
+        type="submit" 
+        style="padding: 0.5rem 1rem; background-color: #007BFF; color: white; border: none; border-radius: 5px;"
+      >
+        Join Class
+      </button>
+    </form>
+  </div>
+
+  <!-- List of Classes -->
+  <div style="margin-top: 2rem;">
+    <h3>Your Classes:</h3>
+    <% if (classes.length === 0) { %>
+      <p>You haven't joined any classes yet.</p>
+    <% } else { %>
+      <ul style="list-style: none; padding: 0;">
+        <% classes.forEach(classroom => { %>
+          <li style="padding: 1rem; border: 1px solid #ddd; margin-top: 1rem; border-radius: 8px;">
+            <strong><%= classroom.name %></strong> <br/>
+            <small>Taught by: <%= classroom.teacher.username %></small><br/>
+            <a 
+              href="/student/class/<%= classroom._id %>" 
+              style="margin-top: 0.5rem; display: inline-block; background-color: #28a745; color: white; padding: 0.4rem 0.8rem; border-radius: 4px; text-decoration: none;"
+            >
+              Go to Class
+            </a>
+          </li>
+        <% }) %>
+      </ul>
+    <% } %>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<% layout('layouts/boilerplate') %>
+<style>
+  h2{
+    text-align: center;
+  }
+</style>
+<div class="row m-auto">
+  <h2 class="table-heading">Upload Assignment for Class: <%= classroom.name %></h2>
+
+  <form action="/teacher/class/<%= classroom._id %>/upload-assignment" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
+    <div class="col col-8 m-auto">
+    <div class="form-group">
+      <label for="title">Assignment Title:</label>
+      <input type="text" name="title" required class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <textarea name="description" required class="form-control"></textarea>
+    </div>
+    <div class="form-group">
+      <label for="assingment">Upload assingment</label>
+      <input type="file" name="assignment[assignment]" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="deadline">Deadline:</label>
+      <input type="datetime-local" name="deadline" required class="form-control">
+    </div>
+    
+    <div class="text-center mt-4">
+      <button type="submit" class="btn-create">Upload Assignment</button>
+    </div>
+  </form>
+</div>
+</div>

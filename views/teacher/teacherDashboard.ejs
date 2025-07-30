@@ -1,0 +1,138 @@
+<% layout('layouts/boilerplate') %>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+
+
+
+  
+
+  .btn-purple {
+    background-color: #6c5ce7;
+    color: #fff;
+    padding: 0.5rem 1.2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+
+  .btn-purple:hover {
+    background-color: #5a4dbf;
+  }
+
+  .btn-create {
+    display: inline-block;
+    margin-top: 1.5rem;
+    padding: 0.7rem 1.5rem;
+    background-color: #0984e3;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.2s;
+  }
+
+  .btn-create:hover {
+    background-color: #077cc0;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  /* MOBILE VIEW (Cards) - hidden by default on desktop */
+  .mobile-class-card {
+    display: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    .table-container {
+      display: none;
+    }
+
+    .mobile-class-card {
+      display: block;
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .mobile-class-card p {
+      margin: 0.4rem 0;
+    }
+
+    .mobile-class-card strong {
+      display: inline-block;
+      width: 110px;
+      color: #555;
+    }
+
+    .mobile-class-card .btn-purple {
+      margin-top: 0.8rem;
+      display: inline-block;
+    }
+
+    .table-heading {
+      font-size: 1.5rem;
+    }
+  }
+</style>
+
+<div class="modern-table-wrapper">
+  <h2 class="table-heading">Your Active Classrooms</h2>
+
+  <!-- 🖥 Desktop Table View -->
+  <div class="table-container">
+    <table class="modern-table">
+      <thead>
+        <tr>
+          <th>S.No.</th>
+          <th>Class Name</th>
+          <th>Subject</th>
+          <th>Invite Code</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% if (classes.length === 0) { %>
+          <tr>
+            <td colspan="5">You have not created any class yet</td>
+          </tr>
+        <% } else { %>
+          <% classes.forEach((cls, index) => { %>
+            <tr>
+              <td><%= index + 1 %></td>
+              <td><%= cls.name %></td>
+              <td><%= cls.subject %></td>
+              <td><%= cls.code %></td>
+              <td>
+                <a href="/teacher/class/<%= cls._id %>" class="btn-purple">View</a>
+              </td>
+            </tr>
+          <% }) %>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- 📱 Mobile Card View -->
+  <% classes.forEach((cls, index) => { %>
+    <div class="mobile-class-card">
+      <p><strong>S.No.:</strong> <%= index + 1 %></p>
+      <p><strong>Class Name:</strong> <%= cls.name %></p>
+      <p><strong>Subject:</strong> <%= cls.subject %></p>
+      <p><strong>Invite Code:</strong> <%= cls.code %></p>
+      <a href="/teacher/class/<%= cls._id %>" class="btn-purple">View</a>
+    </div>
+  <% }) %>
+
+  <div class="text-center">
+    <a href="/teacher/create-class" class="btn-create">+ Create New Class</a>
+  </div>
+</div>

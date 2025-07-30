@@ -1,0 +1,96 @@
+<% layout('layouts/boilerplate') %>
+
+<style>
+     body {
+    background-image: url('/16282276_rm222batch2-mind-03.svg');
+    background-repeat: no-repeat;
+    background-size: cover;         /* makes the image cover entire screen */
+    background-position: center;    /* centers the image */
+    background-attachment: fixed;   /* optional: keeps image fixed on scroll */
+    
+    margin: 0;
+    padding: 0;
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+    .auth-section {
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fadeIn 2s ease-in-out;
+    }
+
+    .auth-box {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        width: 100%;
+        max-width: 450px;
+        animation: slideIn 1.2s ease;
+    }
+
+    .auth-title {
+        font-size: 2rem;
+        font-weight: bold;
+        text-align: center;
+        margin-bottom: 25px;
+        animation: pulseTitle 2s infinite alternate;
+        color: #444;
+    }
+
+    .form-label {
+        font-weight: 600;
+    }
+
+    .btn-success {
+        transition: all 0.3s ease;
+        font-weight: bold;
+    }
+
+    .btn-success:hover {
+        background-color: #28a745;
+        box-shadow: 0 0 12px rgba(40, 167, 69, 0.6);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+        from { opacity: 0; transform: scale(0.9); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes slideIn {
+        from { transform: translateY(-30px); opacity: 0; }
+        to { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes pulseTitle {
+        from { letter-spacing: 1px; }
+        to { letter-spacing: 3px; }
+    }
+</style>
+
+<section class="auth-section">
+    <div class="auth-box">
+        <h2 class="auth-title">Teacher Signup</h2>
+        <form action="/signupTeacher" method="POST" class="needs-validation" novalidate>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" name="username" id="username" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input name="email" type="email" id="email" class="form-control" placeholder="abc@gmail.com" required>
+            </div>
+            <div class="mb-4">
+                <label for="password" class="form-label">Password</label>
+                <input name="password" type="password" id="password" class="form-control" required>
+            </div>
+            <div class="d-grid">
+                <button class="btn btn-success" type="submit">Signup</button>
+            </div>
+        </form>
+    </div>
+</section>

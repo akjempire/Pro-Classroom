@@ -1,0 +1,27 @@
+<% layout('layouts/boilerplate') %>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow rounded-4">
+        <div class="card-body p-4">
+          <h3 class="card-title text-center mb-4">Create New Class</h3>
+          <form action="/teacher/create-class" method="POST">
+            <div class="mb-3">
+              <label for="name" class="form-label">Class Name</label>
+              <input type="text" name="name" id="name" class="form-control" placeholder="Enter class name" required>
+            </div>
+            <div class="mb-3">
+              <label for="subject" class="form-label">Subject</label>
+              <input type="text" name="subject" id="subject" class="form-control" placeholder="Enter subject" required>
+            </div>
+            <div class="d-grid">
+              <button type="submit" class="btn btn-primary btn-block rounded-pill">
+                Create Class
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

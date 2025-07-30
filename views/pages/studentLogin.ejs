@@ -1,0 +1,89 @@
+<% layout('layouts/boilerplate') %>
+
+<style>
+    /* Cream background for login page */
+     body {
+    background-image: url('/16282276_rm222batch2-mind-03.svg');
+    background-repeat: no-repeat;
+    background-size: cover;         /* makes the image cover entire screen */
+    background-position: center;    /* centers the image */
+    background-attachment: fixed;   /* optional: keeps image fixed on scroll */
+    
+    margin: 0;
+    padding: 0;
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.login-section {
+  height: 100vh;
+  animation: fadeInBg 2s ease-in-out;
+}
+
+/* Login box styling */
+.login-box {
+  background-color: white;
+  width: 100%;
+  max-width: 400px;
+  animation: fadeInSlide 1.5s ease;
+}
+
+/* Login heading */
+.login-heading {
+  font-weight: bold;
+  animation: pulseHeading 2s infinite alternate;
+  color: #333;
+}
+
+/* Button hover effect */
+.btn-success {
+  transition: all 0.3s ease;
+}
+
+.btn-success:hover {
+  background-color: #28a745;
+  box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+}
+
+/* Animations */
+@keyframes fadeInSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseHeading {
+  from {
+    letter-spacing: 1px;
+    color: #444;
+  }
+  to {
+    letter-spacing: 3px;
+    color: #222;
+  }
+}
+</style>
+<section class="login-section d-flex align-items-center justify-content-center">
+  <div class="login-box p-4 shadow-lg rounded">
+    <h2 class="text-center mb-4 login-heading">Student Login</h2>
+    <form action="/loginStudent" method="POST" class="needs-validation" novalidate>
+      <div class="mb-3">
+        <label for="username" class="form-label"><b>Username</b></label>
+        <input type="text" name="username" id="username" class="form-control" required>
+      </div>
+
+      <div class="mb-4">
+        <label for="password" class="form-label"><b>Password</b></label>
+        <input name="password" type="password" id="password" class="form-control" required>
+      </div>
+
+      <div class="d-grid">
+        <button class="btn btn-success" type="submit"><b>Login</b></button>
+      </div>
+    </form>
+  </div>
+</section>

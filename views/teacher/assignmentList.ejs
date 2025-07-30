@@ -1,0 +1,35 @@
+<%- layout('layouts/boilerplate') %>
+
+<div class="container mt-5">
+  <h2 class="text-center mb-4">Assignments for Class: <%= classroom.name %></h2>
+
+  <% if (assignments.length === 0) { %>
+    <div class="alert alert-warning text-center">No assignments created yet.</div>
+  <% } else { %>
+    <!-- Assignment Table -->
+    <div class="table-responsive">
+      <table class="table table-bordered table-striped table-hover">
+        <thead class="thead-dark">
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Uploaded On</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% assignments.forEach(assgn => { %>
+            <tr>
+              <td><%= assgn.title %></td>
+              <td><%= assgn.description %></td>
+              <td><%= new Date(assgn.createdAt).toLocaleDateString() %></td>
+              <td>
+                <td><a href="<%= assgn.assignmentFile.url %>" target="_blank">Download</a></td>
+              </td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</div>
