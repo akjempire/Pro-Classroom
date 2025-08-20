@@ -1,0 +1,67 @@
+.results-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+}
+
+.btn-back {
+  background: #007bff;
+  color: white !important;
+  border-radius: 30px;
+  padding: 8px 16px;
+  font-weight: 500;
+  transition: 0.3s ease;
+}
+
+.btn-back:hover {
+  background: #0056b3;
+  text-decoration: none;
+}
+
+.report-info {
+  background: #f1f8ff;
+  border-left: 5px solid #007bff;
+  padding: 15px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+}
+
+.badge-issues {
+  background: #ff4757;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 12px;
+}
+
+.results-card {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.results-card .card-header {
+  background: #343a40;
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.table th {
+  background: #f8f9fa;
+}
+
+.high-risk {
+  background-color: #f8d7da !important; /* Red */
+}
+
+.medium-risk {
+  background-color: #fff3cd !important; /* Yellow */
+}
+
+.no-report {
+  background: #fff3cd;
+  padding: 15px;
+  border-left: 5px solid #ffc107;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: 500;
+}

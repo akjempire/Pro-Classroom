@@ -1,14 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Error</title>
-    <link rel="stylesheet" href="/styles.css"> <!-- Link to your CSS file if needed -->
+  <meta charset="UTF-8">
+  <title>Error <%= statusCode || 404 %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #e0eafc, #cfdef3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .error-container {
+      max-width: 600px;
+      padding: 2rem;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+    }
+
+    .error-code {
+      font-size: 6rem;
+      font-weight: 800;
+      color: #6c5ce7;
+      margin-bottom: 0.5rem;
+    }
+
+    .error-message {
+      font-size: 1.25rem;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+
+    .error-detail {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 2rem;
+    }
+
+    .back-btn {
+      background-color: #6c5ce7;
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background-color: #5a4dbf;
+    }
+
+    @media (max-width: 480px) {
+      .error-code {
+        font-size: 4rem;
+      }
+
+      .error-message {
+        font-size: 1.1rem;
+      }
+
+      .error-detail {
+        font-size: 0.9rem;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>Error <%= statusCode %></h1>
-    <p><%= message %></p>
-    <a href="/">Go Back</a>
+  <div class="error-container">
+    <div class="error-code"><%= statusCode || 404 %></div>
+    <div class="error-message">
+      Oops! The page you're looking for doesn't exist.
+    </div>
+    <div class="error-detail">
+      <%= message || "This might have happened because of a mistyped URL, deleted page, or broken link." %>
+    </div>
+    <a href="/" class="back-btn">Go Back Home</a>
+  </div>
 </body>
 </html>

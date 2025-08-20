@@ -41,22 +41,20 @@ router.get("/teacher/teacherDashboard", isLoggedIn,async (req, res) => {
 });
 router.post('/teacher/assignment/:id/manual-check', async (req, res) => {
   try {
-    const assignment = await Assignment.findById(req.params.id)
-      .select('-classroom'); // Explicit exclusion
-    
-    if (!assignment) return res.status(404).render('error', { message: 'Assignment not found' });
+    const assignment = await Assignment.findById(req.params.id).select('-classroom');
+    if (!assignment) {
+      return res.status(404).render('error', { message: 'Assignment not found' });
+    }
 
+    // Service handles checking + saving
     const report = await PlagiarismService.checkPlagiarismForAssignment(
       assignment._id,
-      assignment.classId // Pass but don't populate
+      assignment.classId
     );
-    
-    await PlagiarismReport.create({
-      assignment: assignment._id,
-      results: report.comparisons
-    });
 
+    // Just redirect to results page
     res.redirect(`/teacher/assignment/${assignment._id}/results`);
+
   } catch (error) {
     console.error('PLAGIARISM_CHECK_ERROR:', error);
     res.status(400).render('error', { 
@@ -65,6 +63,7 @@ router.post('/teacher/assignment/:id/manual-check', async (req, res) => {
     });
   }
 });
+
 router.get('/teacher/assignment/:id/results', async (req, res) => {
   try {
     const assignment = await Assignment.findById(req.params.id);
@@ -73,11 +72,11 @@ router.get('/teacher/assignment/:id/results', async (req, res) => {
       return res.redirect('back');
     }
 
-    const report = await PlagiarismReport.findOne({ assignment: req.params.id })
+    // Always get latest plagiarism report
+    const report = await PlagiarismReport.findOne({ assignment: assignment._id })
       .sort({ generatedAt: -1 })
       .populate('results.student1 results.student2');
 
-    // Safely get classroom if it exists
     let classroom = null;
     if (assignment.classId) {
       classroom = await Classroom.findById(assignment.classId).catch(() => null);
@@ -85,7 +84,7 @@ router.get('/teacher/assignment/:id/results', async (req, res) => {
 
     res.render('teacher/assignment-results', {
       assignment,
-      classroom, // Now properly passed
+      classroom,
       report
     });
 
@@ -95,5 +94,62 @@ router.get('/teacher/assignment/:id/results', async (req, res) => {
     res.redirect('back');
   }
 });
+
+// router.post('/teacher/assignment/:id/manual-check', async (req, res) => {
+//   try {
+//     const assignment = await Assignment.findById(req.params.id)
+//       .select('-classroom'); // Explicit exclusion
+    
+//     if (!assignment) return res.status(404).render('error', { message: 'Assignment not found' });
+
+//     const report = await PlagiarismService.checkPlagiarismForAssignment(
+//       assignment._id,
+//       assignment.classId // Pass but don't populate
+//     );
+    
+//     await PlagiarismReport.create({
+//       assignment: assignment._id,
+//       results: report.comparisons
+//     });
+
+//     res.redirect(`/teacher/assignment/${assignment._id}/results`);
+//   } catch (error) {
+//     console.error('PLAGIARISM_CHECK_ERROR:', error);
+//     res.status(400).render('error', { 
+//       message: 'Check failed',
+//       details: error.message 
+//     });
+//   }
+// });
+// router.get('/teacher/assignment/:id/results', async (req, res) => {
+//   try {
+//     const assignment = await Assignment.findById(req.params.id);
+//     if (!assignment) {
+//       req.flash('error', 'Assignment not found');
+//       return res.redirect('back');
+//     }
+
+//     const report = await PlagiarismReport.findOne({ assignment: req.params.id })
+//       .sort({ generatedAt: -1 })
+//       .populate('results.student1 results.student2');
+
+//     // Safely get classroom if it exists
+//     let classroom = null;
+//     if (assignment.classId) {
+//       classroom = await Classroom.findById(assignment.classId).catch(() => null);
+//     }
+
+//     res.render('teacher/assignment-results', {
+//       assignment,
+//       classroom, // Now properly passed
+//       report
+//     });
+
+//   } catch (error) {
+//     console.error('Results error:', error);
+//     req.flash('error', 'Error loading results');
+//     res.redirect('back');
+//   }
+// });
 
 module.exports = router;

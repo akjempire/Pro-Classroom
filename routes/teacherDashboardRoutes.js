@@ -21,7 +21,21 @@ router.get("/:id/students",isLoggedIn, wrapAsync(teacherDashboard.studentDetails
 
 router.get("/:id/assignments",isLoggedIn, wrapAsync(teacherDashboard.assignments));
 router.get("/:id/upload-assignment",isLoggedIn, wrapAsync(teacherDashboard.uploadfrom));
-router.post("/:id/upload-assignment",isLoggedIn, upload.single("assignment[assignment]"), wrapAsync(teacherDashboard.upload));
+router.post("/:id/upload-assignment", isLoggedIn, (req, res, next) => {
+  upload.single("assignment[assignment]")(req, res, function (err) {
+    if (err && err.code === 'LIMIT_FILE_SIZE') {
+      req.flash("error", "File too large. Max size allowed is 5MB.");
+      return res.redirect("back");
+    } else if (err) {
+      return next(err);
+    }
+    next();
+  });
+}, wrapAsync(teacherDashboard.upload));
+// At bottom of teacherDashboard router
+router.delete("/:id/delete", isLoggedIn, wrapAsync(teacherDashboard.deleteClass));
+
+
 
 
 

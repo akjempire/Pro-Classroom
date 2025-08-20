@@ -1,52 +1,61 @@
-<!-- views/teacher/assignment-results.ejs -->
-<% if (classroom) { %>
-  <a href="/teacher/classroom/<%= classroom._id %>" class="btn btn-secondary">
-    Back to Classroom
-  </a>
-<% } else { %>
-  <a href="/teacher/dashboard" class="btn btn-secondary">
-    Back to Dashboard
-  </a>
-<% } %>
+<% layout('layouts/boilerplate') %>
 
-<% if (report) { %>
-  <div class="alert alert-info">
-    Check performed on: <%= report.generatedAt.toLocaleString() %>
-    | <%= report.results.length %> potential issues found
+<div class="results-container mt-4">
+
+  <!-- Back button -->
+  <div class="mb-3">
+    <% if (classroom) { %>
+      <a href="/teacher/class/<%= classroom._id %>" class="btn btn-back">
+        ← Back to Classroom
+      </a>
+    <% } else { %>
+      <a href="/teacher/dashboard" class="btn btn-back">
+        ← Back to Dashboard
+      </a>
+    <% } %>
   </div>
 
-  <table class="table table-bordered">
-    <thead class="thead-dark">
-      <tr>
-        <th>Student 1</th>
-        <th>Student 2</th>
-        <th>Similarity</th>
-        <th>Details</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% report.results.forEach(comparison => { %>
-        <tr class="<%= comparison.similarity > 80 ? 'table-danger' : 'table-warning' %>">
-          <td><%= comparison.student1.username %></td>
-          <td><%= comparison.student2.username %></td>
-          <td><%= comparison.similarity %>%</td>
-          <td>
-            <button class="btn btn-sm btn-info" data-toggle="collapse" 
-                    data-target="#details-<%= comparison._id %>">
-              Show Details
-            </button>
-            <div id="details-<%= comparison._id %>" class="collapse mt-2">
-              <pre><%= comparison.details %></pre>
-            </div>
-          </td>
-        </tr>
-      <% }) %>
-    </tbody>
-  </table>
-<% } else { %>
-  <div class="alert alert-warning">No plagiarism report available</div>
-<% } %>
+  <% if (report) { %>
+    <!-- Report Info -->
+    <div class="report-info shadow-sm">
+      <p><strong>Plagiarism check performed on:</strong> 
+        <%= report.generatedAt.toLocaleString() %></p>
+      <p><strong>Potential issues found:</strong> 
+        <span class="badge badge-issues"><%= report.results.length %></span>
+      </p>
+    </div>
 
-<a href="/teacher/classroom/<%= classroom._id %>" class="btn btn-secondary">
-  Back to Classroom
-</a>
+    <!-- Results Table -->
+    <div class="card shadow-sm results-card">
+      <div class="card-header">
+        <h5 class="mb-0">Plagiarism Report</h5>
+      </div>
+      <div class="table-responsive">
+        <table class="table table-hover table-bordered mb-0">
+          <thead>
+            <tr>
+              <th>Student 1</th>
+              <th>Student 2</th>
+              <th>Similarity</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% report.results.forEach(c => { %>
+              <tr class="<%= c.similarity > 80 ? 'high-risk' : 'medium-risk' %>">
+                <td><%= c.student1.username %></td>
+                <td><%= c.student2.username %></td>
+                <td><strong><%= c.similarity %>%</strong></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  <% } else { %>
+    <!-- No report found -->
+    <div class="no-report shadow-sm">
+      No plagiarism report available yet. Run the check to generate one.
+    </div>
+  <% } %>
+</div>

@@ -12,7 +12,7 @@ module.exports.singup= async(req, res) => {
         let { username, email, password } = req.body;
         const newTeacher = new Teacher({ email, username });
         const registerTeacher = await Teacher.register(newTeacher, password);
-        console.log(registerTeacher);
+        
 
         req.login(registerTeacher, (err) => {
             if (err) {
@@ -34,15 +34,15 @@ module.exports.loginForm=  async(req, res)=>{
     res.render("../views/teacher/teacherLogin.ejs");
 };
 
+module.exports.login = async (req, res) => {
+    req.flash("success", "Welcome back to ProClassroom");
+    res.redirect("/teacher/teacherDashboard");
+};
 module.exports.authenticate = passport.authenticate("teacher-local", {
     failureRedirect: "/loginTeacher",
     failureFlash: true
 });
 
-module.exports.login = async (req, res) => {
-    req.flash("success", "Welcome back to ProClassroom");
-    res.redirect("/teacher/teacherDashboard");
-};
 module.exports.logout=async(req,res, next)=>{
     req.logOut((err)=>{
         if(err)

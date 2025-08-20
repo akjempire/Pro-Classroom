@@ -13,7 +13,8 @@ const storage = new CloudinaryStorage({
     folder: 'teacher_Assingment',
     resource_type: 'auto',
     allowed_formats: ["png", "jpg", "jpeg", "pdf", "txt", "docx"]
-  }
+  },
+  limits: { fileSize: 5 * 1024 * 1024 } 
 });
 
 module.exports = {

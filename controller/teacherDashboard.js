@@ -158,14 +158,16 @@ module.exports.deleteClass = async (req, res) => {
   try {
     const classId = req.params.id;
 
-    // Delete all assignment submissions related to this class
-    await AssignmentSubmission.deleteMany({ classroom: classId });
+    // This triggers the post middleware that handles cascading deletes
+    const deletedClass = await Classroom.findOneAndDelete({
+      _id: classId,
+      teacher: req.user._id  // Optional: ensures the teacher owns the class
+    });
 
-    // Delete all assignments in this class
-    await Assignment.deleteMany({ classId });
-
-    // Finally, delete the class itself
-    await Classroom.findByIdAndDelete(classId);
+    if (!deletedClass) {
+      req.flash("error", "Class not found or you're not authorized to delete it.");
+      return res.redirect("/teacher/teacherDashboard");
+    }
 
     req.flash("success", "Class and all associated data deleted successfully.");
     res.redirect("/teacher/teacherDashboard");
@@ -175,5 +177,6 @@ module.exports.deleteClass = async (req, res) => {
     res.redirect("/teacher/teacherDashboard");
   }
 };
+
 
                 
