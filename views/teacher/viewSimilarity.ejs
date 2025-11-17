@@ -1,0 +1,87 @@
+<% layout('layouts/boilerplate') %>
+
+    <style>
+        .similarity-score {
+            font-size: 28px;
+            font-weight: 700;
+            color: #ff4d4d;
+        }
+
+        .match-box {
+            background: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+        }
+
+        mark {
+            background: #fff59d;
+            padding: 0 2px;
+            border-radius: 2px;
+        }
+
+        .col-2 {
+            width: 48%;
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .col-gap {
+            width: 4%;
+            display: inline-block;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            background: #f7f7f7;
+            padding: 10px;
+            border-radius: 6px;
+        }
+    </style>
+
+    <div class="container mt-4">
+        <h2>🔍 Similarity Details</h2>
+        <hr>
+
+        <div class="match-box">
+            <p><strong>Student 1:</strong>
+                <%= pair.student1.username %> (<%= pair.student1.email %>)
+            </p>
+            <p><strong>Student 2:</strong>
+                <%= pair.student2.username %> (<%= pair.student2.email %>)
+            </p>
+            <p class="similarity-score">
+                <%= pair.similarity %>% match
+            </p>
+            <p><a href="/teacher/class/extracted/<%= download1 %>" class="btn btn-sm btn-primary"
+                    target="_blank">Download Extract 1</a>
+                <a href="/teacher/class/extracted/<%= download2 %>" class="btn btn-sm btn-primary"
+                    target="_blank">Download Extract 2</a>
+            </p>
+        </div>
+
+        <h4>Matched Sentences (highest first)</h4>
+
+        <% if (!matchedContent || matchedContent.length===0) { %>
+            <p>No high-confidence sentence matches detected.</p>
+            <% } else { %>
+                <% matchedContent.forEach(m=> { %>
+                    <div class="match-box">
+                        <div class="col-2">
+                            <p><b>Student 1</b></p>
+                            <pre><%= m.sentence1 %></pre>
+                        </div>
+                        <div class="col-gap"></div>
+                        <div class="col-2">
+                            <p><b>Student 2</b></p>
+                            <pre><%= m.sentence2 %></pre>
+                        </div>
+                        <div style="clear:both;margin-top:8px;"><b>Similarity:</b>
+                            <%= m.similarity %>%
+                        </div>
+                    </div>
+                    <% }) %>
+                        <% } %>
+
+    </div>

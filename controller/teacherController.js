@@ -1,3 +1,4 @@
+//teacherController.js
 const passport = require("passport");
 const Teacher = require("../models/teacher");
 const Classroom = require("../models/classroom");

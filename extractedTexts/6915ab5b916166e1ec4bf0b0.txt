@@ -1,0 +1,9 @@
+
+
+Artificial intelligence plays a critical role in shaping modern technology. It enables machines to
+perform cognitive tasks such as learning, reasoning, and decision-making. AI systems analyze
+large amounts of data to recognize patterns and generate predictions. This technology powers
+virtual assistants, self-driving cars, and recommendation systems. AI relies heavily on data,
+algorithms, and computational power. As research progresses, AI continues to improve automation,
+accuracy, and personalization in various industries. While AI offers many benefits, it also raises
+ethical concerns such as privacy, bias, and accountability.
